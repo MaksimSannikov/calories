@@ -1,18 +1,4 @@
-const activity = {
-    min: 1.2,
-    low: 1.375,
-    medium: 1.55,
-    high: 1.725,
-    max: 1.9,
-};
-
-const cond = {
-    forWeight: 10,
-    forHeight: 6.25,
-    forAge: 5,
-    forMale: 5,
-    forFemale: 161,
-}
+import {activity, cond} from './formula.js';
 
 let parameters = {}
 
@@ -72,15 +58,15 @@ function getParameters() {
 }
 
 function calculateCalories(parameters) {
-    let N = (cond.forWeight * parameters.weight) + (cond.forHeight * parameters.height) - (cond.forAge * parameters.age);
+    let N = (cond.weight * parameters.weight) + (cond.height * parameters.height) - (cond.age * parameters.age);
     let normal;
 
     switch (parameters.gender) {
         case 'male':
-            N += cond.forMale;
+            N += cond.male;
             break;
         case 'female':
-            N += cond.forFemale;
+            N += cond.female;
             break;
     }
 
@@ -116,14 +102,14 @@ function calculateCalories(parameters) {
 }
 
 function showResults(result) {
-    const kaloriesNorm = counterResult.querySelector('#calories-norm');
-    const kaloriesMin = counterResult.querySelector('#calories-minimal');
-    const kaloriesMax = counterResult.querySelector('#calories-maximal');
+    const caloriesNorm = counterResult.querySelector('#calories-norm');
+    const caloriesMin = counterResult.querySelector('#calories-minimal');
+    const caloriesMax = counterResult.querySelector('#calories-maximal');
 
     function insertingResults() {
-        kaloriesNorm.textContent = result.weightNormal;
-        kaloriesMin.textContent = result.weightLoss;
-        kaloriesMax.textContent = result.weightGain;
+        caloriesNorm.textContent = result.weightNormal;
+        caloriesMin.textContent = result.weightLoss;
+        caloriesMax.textContent = result.weightGain;
     }
 
     if (!counterResult.classList.contains('counter__result--hidden')) {
